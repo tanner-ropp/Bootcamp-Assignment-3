@@ -85,7 +85,13 @@ exports.delete = function(req, res) {
   var listing = req.listing;
 
   /* Add your code to remove the listins */
-
+  Listing.deleteOne(listing, function(err){
+    if (err){
+      res.status(400).send(err);
+    } else {
+      res.send(); // DISPLAY ANYTHING?????
+    }
+  });
 };
 
 /* Retreive all the directory listings, sorted alphabetically by listing code */
