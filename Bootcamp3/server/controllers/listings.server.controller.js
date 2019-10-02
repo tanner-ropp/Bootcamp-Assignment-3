@@ -68,8 +68,10 @@ exports.update = function(req, res) {
   listing.address = req.body.address;
 
   /*save the coordinates (located in req.results if there is an address property) */
-  // SHOULD I CHECK IF ADDRESS PROPERTYY EXISTS BEFORE SAVING???
-
+  if (listing.ccordinates){
+    listing.coordinates.latitude = req.results.lat;
+    listing.coordinate.longitude = req.results.lng;
+  }
 
   /* Save the listing */
   // WILL THE PRE  FUNCTION IN THE MODEL TAKE CARE OF DATES????????
