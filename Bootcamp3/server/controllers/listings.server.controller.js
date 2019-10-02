@@ -42,7 +42,7 @@ exports.create = function(req, res) {
       res.status(400).send(err);
     } else {
       res.json(listing);
-      console.log(listing)
+      console.log(listing);
     }
   });
 };
@@ -64,20 +64,22 @@ exports.update = function(req, res) {
 
   listing.code = req.body.code;
   listing.name = req.body.name;
-  // listing.coordinates = req.body.coordinates; // SHOULD I SPLIT INTO LAT AND LONG?
   listing.address = req.body.address;
 
   /*save the coordinates (located in req.results if there is an address property) */
-  if (listing.ccordinates){
+  if (req.results){
     listing.coordinates.latitude = req.results.lat;
-    listing.coordinate.longitude = req.results.lng;
+    listing.coordinates.longitude = req.results.lng;
   }
 
   /* Save the listing */
-  // WILL THE PRE  FUNCTION IN THE MODEL TAKE CARE OF DATES????????
   listing.save(function(err){
     // LOOK AT EXAMPLE
-    res.json(listing);
+    if(err) {
+      res.status(400).send(err);
+    } else {
+      res.json(listing);
+    }
   });
 
 };
@@ -91,7 +93,7 @@ exports.delete = function(req, res) {
     if (err){
       res.status(400).send(err);
     } else {
-      res.send(); // DISPLAY ANYTHING?????
+      res.json(listing);
     }
   });
 };
@@ -101,7 +103,11 @@ exports.list = function(req, res) {
   /* Add your code */
   Listing.find(function(err, listing)
   {
-    res.json(listing);
+    if(err) {
+      res.status(400).send(err);
+    } else {
+      res.json(listing);
+    }
   });
 
 };

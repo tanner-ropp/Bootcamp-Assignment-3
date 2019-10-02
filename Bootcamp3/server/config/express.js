@@ -22,6 +22,9 @@ module.exports.init = function() {
   //body parsing middleware
   app.use(bodyParser.json());
 
+  // formats JSON responses to be "pretty"
+  app.set('json spaces', 2);
+
   /* serve static files - see http://expressjs.com/en/starter/static-files.html */
   app.use('/', express.static(__dirname + '/../../client'));
 
