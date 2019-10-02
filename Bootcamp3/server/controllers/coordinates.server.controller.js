@@ -35,11 +35,15 @@ module.exports = function(req, res, next) {
 
           Assumption: if we get a result we will take the coordinates from the first result returned
         */
-
-        if (JSON.parse(body).total_results > 0){
-          req.results = JSON.parse(body).results[0].geometry;
+        if (error){
+          console.log(error);
+          res.status(400).send(error);
+        } else {
+          if (JSON.parse(body).total_results > 0){
+            req.results = JSON.parse(body).results[0].geometry;
+          }
+          next();
         }
-        next();
     });
   } else {
     next();
